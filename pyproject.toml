@@ -35,8 +35,11 @@ jit = ["numba"]
 msgpack = ["msgpack", "msgpack-numpy"]
 
 [build-system]
-requires = ["setuptools>=45.2", "wheel"]
+requires = ["setuptools>=60", "wheel", "setuptools-scm>=8.0"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+fallback_version = "0.0.0"
 
 [tool.black]
 line-length = 88
