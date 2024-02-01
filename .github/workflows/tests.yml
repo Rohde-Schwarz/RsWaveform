@@ -68,8 +68,8 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-            name: coverage${{ matrix.tests }}
-            path: "**/coverage*"
+            name: coverage-${{ matrix.python }}-${{ matrix.os }}${{ matrix.tests }}
+            path: "$github_workspace/coverage*"
             retention-days: 1
   coverage:
     needs: [testing]
