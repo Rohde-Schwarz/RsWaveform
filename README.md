@@ -4,16 +4,27 @@
 
 > Load, manipulate and save R&S waveform files
 
-A few more paragraphs explaining purposes and features.
+The RsWaveform package provides a convenient and easy-to-use software solution for creating and modifying waveform files that can be used with Rohde & Schwarz instruments, but it does not provide access to encrypted waveform files that require a license.
+
+## Purpose
+
+### What it does
+
+The RsWaveform package is a software tool developed by Rohde & Schwarz that allows you to create waveform files that can be used with Rohde & Schwarz instruments. This tool can help you to easily create waveform files that match your specific needs, or to load existing waveform files in various formats such as wv, iqtar, and iqw, modify them, and store them again for future use.
+
+### What it not does
+
+The RsWaveform package does not have the capability to load encrypted waveform files that require a license. These waveform files can only be used with a licensed Rohde & Schwarz product, and cannot be modified or analyzed without the appropriate license.
 
 ## Installation
 
 Install from pypi.org:
+
 ```sh
 $ pip install RsWaveform
 ```
 
-You need at least Python 3.7.
+You need at least Python 3.8.
 
 ## Usage
 
@@ -186,6 +197,17 @@ RsWaveform.calculate_rms(data)
 RsWaveform.calculate_par(data)
 >> 0.0
 ```
+
+### Running the tests
+
+To run the tests, run the following command:
+
+```sh
+$ pip install tox
+$ tox -e pytest
+```
+
+This will run all the tests for the package and report any issues or failures. Make sure that you have installed the necessary dependencies before running the tests.
 
 ## Contributing
 
