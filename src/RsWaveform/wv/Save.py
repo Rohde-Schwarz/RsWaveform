@@ -201,7 +201,7 @@ class Save(SaveInterface):
         if isinstance(control_list, list):
             control_list = np.array(control_list)
         list_bytes = pack_bool_array_to_bytes(control_list)
-        line = f"{{CONTROL LIST WIDTH4-{len(list_bytes)+1}:#"
+        line = f"{{CONTROL LIST WIDTH4-{len(list_bytes) + 1}:#"
         file.write(line.encode())
         file.write(list_bytes)
         file.write(b"}")
@@ -210,7 +210,7 @@ class Save(SaveInterface):
     def _write_empty_tag(file: typing.IO):
         scale = 512
         rand_empty = int(np.around(np.random.rand() * scale))
-        line = f"{{EMPTYTAG-{rand_empty+1}:#"
+        line = f"{{EMPTYTAG-{rand_empty + 1}:#"
         file.write(line.encode("utf-8"))
         empty = 32 * np.ones((rand_empty,)).astype(np.uint8)
         file.write(empty.tobytes())
