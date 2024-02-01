@@ -1,0 +1,56 @@
+[project]
+name = "RsWaveform"
+description = "Load, manipulate and save R&S waveform files"
+readme = "README.md"
+keywords = ["waveform", "signal", "load", "save"]
+authors = [
+    { name = "Rohde & Schwarz GmbH & Co. KG", email = "info@rohde-schwarz.com" },
+]
+maintainers = [
+    { name = "Carsten Sauerbrey", email = "Carsten.Sauerbrey@rohde-schwarz.com" },
+    { name = "Daniela Rossetto", email = "Daniela.Rossetto@rohde-schwarz.com" },
+]
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.8"
+dependencies = ["numpy", "indexedproperty"]
+dynamic = ["version"]
+
+[project.urls]
+project = "https://github.com/Rohde-Schwarz/RsWaveform"
+
+[project.optional-dependencies]
+docs = ["sphinx", "sphinx-rtd-theme", "myst-parser"]
+test = ["pytest", "coverage[toml]", "pytest-cov", "pytest-mock"]
+jit = ["numba"]
+msgpack = ["msgpack", "msgpack-numpy"]
+
+[build-system]
+requires = ["setuptools>=45.2", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+src_paths = ["src", "tests"]
+
+[tool.coverage.run]
+source = ["RsWaveform"]
+relative_files = true
+
+[tool.coverage.paths]
+source = ["src", "*/site-packages"]
+
+[tool.mypy]
+ignore_missing_imports = true

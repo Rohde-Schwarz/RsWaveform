@@ -1,0 +1,12 @@
+# Ensure that text files that any contributor introduces
+# to the repository have their line endings normalized
+* text=auto
+
+# Text files
+*.py    text
+*.typed text
+*.md    text
+*.cfg   text
+*.ini   text
+*.json  text
+*.toml  text

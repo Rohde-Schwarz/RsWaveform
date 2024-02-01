@@ -1,11 +1,10 @@
 # RsWaveform
 
-[![Documentation](https://readthedocs.org/projects/RsWaveform/badge/?version=latest)](https://RsWaveform.readthedocs.io/) [![Build Status](https://github.com/Rohde-Schwarz/RsWaveform/actions/workflows/tests.yml/badge.svg)](https://github.com/Rohde-Schwarz/RsWaveform/actions/) [![PyPI Versions](https://img.shields.io/pypi/pyversions/RsWaveform.svg)](https://pypi.python.org/pypi/RsWaveform) ![PyPI - Downloads](https://img.shields.io/pypi/dm/RsWaveform)  [![PyPI Status](https://img.shields.io/pypi/status/RsWaveform.svg)](https://pypi.python.org/pypi/pytest-fluent) [![PyPI License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![Documentation](https://readthedocs.org/projects/RsWaveform/badge/?version=latest)](https://RsWaveform.readthedocs.io/) [![Build Status](https://github.com/Rohde-Schwarz/RsWaveform/actions/workflows/tests.yml/badge.svg)](https://github.com/Rohde-Schwarz/RsWaveform/actions/) [![PyPI Versions](https://img.shields.io/pypi/pyversions/RsWaveform.svg)](https://pypi.python.org/pypi/RsWaveform) ![PyPI - Downloads](https://img.shields.io/pypi/dm/RsWaveform)  [![PyPI Status](https://img.shields.io/pypi/status/RsWaveform.svg)](https://pypi.python.org/pypi/RsWaveform) [![PyPI License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 > Load, manipulate and save R&S waveform files
 
 A few more paragraphs explaining purposes and features.
-
 
 ## Installation
 
@@ -15,7 +14,6 @@ $ pip install RsWaveform
 ```
 
 You need at least Python 3.7.
-
 
 ## Usage
 
