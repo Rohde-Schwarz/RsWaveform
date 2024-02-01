@@ -1,6 +1,6 @@
 # RsWaveform
 
-[![Documentation](https://readthedocs.org/projects/RsWaveform/badge/?version=latest)](https://RsWaveform.readthedocs.io/) [![Build Status](https://github.com/Rohde-Schwarz/RsWaveform/actions/workflows/tests.yml/badge.svg)](https://github.com/Rohde-Schwarz/RsWaveform/actions/) [![PyPI Versions](https://img.shields.io/pypi/pyversions/RsWaveform.svg)](https://pypi.python.org/pypi/RsWaveform) ![PyPI - Downloads](https://img.shields.io/pypi/dm/RsWaveform)  [![PyPI Status](https://img.shields.io/pypi/status/RsWaveform.svg)](https://pypi.python.org/pypi/RsWaveform) [![PyPI License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![Documentation Status](https://readthedocs.org/projects/rswaveform/badge/?version=latest)](https://rswaveform.readthedocs.io/en/latest/?badge=latest) [![Build Status](https://github.com/Rohde-Schwarz/RsWaveform/actions/workflows/tests.yml/badge.svg)](https://github.com/Rohde-Schwarz/RsWaveform/actions/) [![PyPI Versions](https://img.shields.io/pypi/pyversions/RsWaveform.svg)](https://pypi.python.org/pypi/RsWaveform) ![PyPI - Downloads](https://img.shields.io/pypi/dm/RsWaveform)  [![PyPI Status](https://img.shields.io/pypi/status/RsWaveform.svg)](https://pypi.python.org/pypi/RsWaveform) [![PyPI License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 > Load, manipulate and save R&S waveform files
 
