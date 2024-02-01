@@ -98,9 +98,15 @@ jobs:
       - name: Convert coverage
         run: |
           tox -e coverage
-      # Currently no official account for organization
-      # - uses: codecov/codecov-action@v2
-      #   with:
-      #     flags: unittests
-      #     name: codecov-umbrella
-      #     fail_ci_if_error: true
+      - name: Code Coverage Report
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: "${{ github.workspace }}/cobertura.xml"
+          badge: true
+          fail_below_min: true
+          format: markdown
+          hide_branch_rate: false
+          hide_complexity: true
+          indicators: true
+          output: both
+          thresholds: '50 75'
