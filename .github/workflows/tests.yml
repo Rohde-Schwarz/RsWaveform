@@ -64,10 +64,12 @@ jobs:
           check_name: Test Report (${{ matrix.os }}, ${{ matrix.python }}, ${{ matrix.tests }})
           report_paths: "**/results.xml"
           detailed_summary: true
-      - name: 'Upload coverage'
+      - name: Upload coverage
         uses: actions/upload-artifact@v4
+        if: always()
         with:
-            path: coverage*
+            name: coverage${{ matrix.tests }}
+            path: "**/coverage*"
             retention-days: 1
   coverage:
     needs: [testing]
