@@ -1,0 +1,46 @@
+name: tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  testing:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install tox
+      - name: Run pytest with coverage
+        continue-on-error: true
+        run: |
+          tox -e test -- --junitxml=results.xml tests/
+      - name: Test report
+        uses: mikepenz/action-junit-report@v4
+        if: always()
+        with:
+          check_name: Test Report (${{ matrix.os }}, ${{ matrix.python }})
+          report_paths: "**/results.xml"
+          detailed_summary: true
+      - name: Convert coverage
+        run: |
+          tox -e coverage
+      # Currently no official account for organization
+      # - uses: codecov/codecov-action@v2
+      #   with:
+      #     flags: unittests
+      #     name: codecov-umbrella
+      #     fail_ci_if_error: true
