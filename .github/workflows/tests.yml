@@ -7,6 +7,7 @@ on:
       - "main"
 
 jobs:
+  # Test all other supported Python version
   testing-py3xx:
     strategy:
       fail-fast: true
@@ -35,6 +36,8 @@ jobs:
           check_name: Test Report (${{ matrix.os }}, ${{ matrix.python }})
           report_paths: "**/results.xml"
           detailed_summary: true
+
+  # Testing with Python 3.11 and coverage file artifacts
   testing:
     strategy:
       fail-fast: false
@@ -71,6 +74,8 @@ jobs:
             name: coverage-${{ matrix.python }}-${{ matrix.os }}${{ matrix.tests }}
             path: "${{ github.workspace }}/.coverage*"
             retention-days: 1
+
+  # Collectiong and combining all coverage files
   coverage:
     needs: [testing]
     strategy:
@@ -85,7 +90,7 @@ jobs:
       - name: Download coverage for testing
         uses: actions/download-artifact@v4
         with:
-          name: coverage*
+          merge-multiple: true
       - name: Install dependencies
         run: |
             python -m pip install --upgrade pip
