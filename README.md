@@ -204,7 +204,7 @@ To run the tests, run the following command:
 
 ```sh
 $ pip install tox
-$ tox -e pytest
+$ tox -e test
 ```
 
 This will run all the tests for the package and report any issues or failures. Make sure that you have installed the necessary dependencies before running the tests.

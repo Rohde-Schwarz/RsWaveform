@@ -44,6 +44,7 @@ def meta() -> Meta:
             "encryption_flag": False,
             "rms": 2.220459,
             "peak": 0.0,
+            "samples": 2,
         }
     )
 
@@ -60,6 +61,7 @@ def meta_mwv() -> Meta:
             "encryption_flag": False,
             "rms": 200.0,
             "peak": 200.0,
+            "samples": 2000,
         }
     )
 
