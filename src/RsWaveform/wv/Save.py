@@ -50,6 +50,7 @@ class Save(SaveInterface):
             self._write_date(fp, data)
             self._write_clock(fp, data.storages[0])
             self._write_samples(fp, data.storages[0])
+            self._write_reflevel(fp, data.storages[0])
 
             self._write_control_length(fp, data.storages[0])
             self._write_control_list(fp, data.storages[0])
@@ -79,6 +80,7 @@ class Save(SaveInterface):
             self._write_copyright(fp, tmp_storage)
             self._write_date(fp, datas)
             self._write_samples(fp, tmp_storage)
+            self._write_reflevel(fp, tmp_storage)
 
             self._write_mwv_segment_count(fp, datas)
             self._write_mwv_segment_length(fp, datas.storages)
@@ -167,6 +169,13 @@ class Save(SaveInterface):
     def _write_samples(file: typing.IO, data: Storage):
         line = f"{{SAMPLES:{len(data.data)}}}"
         file.write(line.encode("utf-8"))
+
+    @staticmethod
+    def _write_reflevel(file: typing.IO, data: Storage):
+        reflevel = data.meta.get("reflevel")
+        if reflevel:
+            line = f"{{REFLEVEL:{reflevel:.6f}}}"
+            file.write(line.encode("utf-8"))
 
     @staticmethod
     def _write_marker(file: typing.IO, data: Storage):

@@ -33,7 +33,7 @@ class Load(LoadInterface):
             content = fp.read()
 
         tags = self._split_data_via_tags_meta(content)
-        samples = int(tags.pop("samples"))
+        samples = int(tags["samples"])
         mwv_segment_count = int(tags.pop("mwv_segment_count", 1))
 
         tags.update(self._split_data_via_tags_waveform(content))
@@ -135,7 +135,7 @@ class Load(LoadInterface):
             header_content, _ = self._read_chunks(fp, separators)
 
         tags = self._split_data_via_tags_meta(header_content)
-        samples = int(tags.pop("samples"))
+        samples = int(tags["samples"])
         tags.update(
             self._split_data_via_tags_control_list_width4(header_content, samples)
         )
@@ -257,7 +257,9 @@ class Load(LoadInterface):
                     marker.update({key: marker_list})
                 continue
             elif key == "samples":
-                continue
+                value = int(value)
+            elif key == "reflevel":
+                value = float(value)
             elif key == "mwv_segment_level_offs":
                 possible_values = value.split(",")
                 offset = possible_values[index * 2]
@@ -415,6 +417,7 @@ class Load(LoadInterface):
             ("DATE", r"", r"[\d\-;\:]+"),  # Timestamp of waveform
             ("SAMPLES", r"", r"[\de\-\+]+"),  # Sample count
             ("CLOCK", r"", r"[\d\.e\-\+]+"),  # Waveform sampling frequency
+            ("REFLEVEL", r"", r"[\d\.e\-\+]+"),  # Reference level for playback
             ("VECTOR MAX", r"", r"[\d\.\-e\+]+"),  # tbd
             ("LEVEL OFFS", r"", r"([\d\.\-e\+]+),([\d\.\-e\+]+)"),
             # Level offset to dBFS
