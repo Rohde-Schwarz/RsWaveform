@@ -26,6 +26,14 @@ $ pip install RsWaveform
 
 You need at least Python 3.8.
 
+## Setup environment
+
+To set up your environment, just run
+
+```py 
+pip install -r requirements-dev.txt
+```
+
 ## Usage
 
 ```py
