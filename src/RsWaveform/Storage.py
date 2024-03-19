@@ -42,8 +42,7 @@ class Storage(abc.ABC):
         if serialized:
             self.deserialize(serialized)
         else:
-            self.data: np.ndarray = np.zeros((1024,), dtype=np.complex128)
-            # self.meta: dict = {}
+            self.data: np.ndarray = np.zeros((0,), dtype=np.complex128)
             self.meta: Meta = Meta()
 
     @property

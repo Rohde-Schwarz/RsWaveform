@@ -44,7 +44,7 @@ def meta() -> Meta:
             "encryption_flag": False,
             "rms": 2.220459,
             "peak": 0.0,
-            "samples": 2,
+            "samples": 0,
             "reflevel": -20.0,
         }
     )
@@ -267,6 +267,28 @@ def test_load_meta_only(reference_waveform_file_name: str, meta: dict):
     ref_control_list = ref_meta.pop("control_list", np.array([]))
     assert np.array_equal(obtained_control_list, ref_control_list)
     assert obtained_meta == ref_meta
+
+
+def test_save_load_compare_meta(reference_waveform_file_name: str, meta: dict):
+    wv = RsWaveform()
+    wv.meta[0] = meta
+    wv.save(file=reference_waveform_file_name)
+
+    wv2 = RsWaveform()
+    wv2.load(file=reference_waveform_file_name)
+
+    assert wv.meta[0] == wv2.meta[0]
+
+
+def test_save_meta_only(reference_waveform_file_name: str, meta: dict):
+    wv = RsWaveform()
+    wv.meta[0] = meta
+    wv.save(file=reference_waveform_file_name)
+
+    wv2 = RsWaveform()
+    wv2.load(file=reference_waveform_file_name)
+
+    assert wv.meta[0] == wv2.meta[0]
 
 
 def test_save(reference_waveform_file_name: str, reference: np.ndarray, meta: dict):

@@ -149,8 +149,6 @@ class Load(LoadInterface):
     @jit(forceobj=True)
     def _extract_iq(tags: dict) -> np.ndarray:
         iq_bytes = tags.pop("waveform")
-        if not iq_bytes:
-            raise ValueError("No waveform data availabe.")
         from_dtype = np.dtype(np.int16)
         to_dtype = np.dtype(np.float16)
         i_values = Load._fix_to_double(
