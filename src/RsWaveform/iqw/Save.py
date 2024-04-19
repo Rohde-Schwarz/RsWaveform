@@ -7,9 +7,9 @@ import typing
 
 import numpy as np
 
-from ..ParentStorage import ParentStorage
-from ..SaveInterface import SaveInterface
-from ..Storage import Storage
+from ..parent_storage import ParentStorage
+from ..save_interface import SaveInterface
+from ..storage import Storage
 from ..utility.fake_jit import jit
 from ..utility.file_handling import write_file_handle
 

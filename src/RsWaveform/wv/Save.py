@@ -8,9 +8,9 @@ import typing
 import numpy as np
 
 from ..meta.defaults import META_WV_DEFAULTS as META_DEFAULTS
-from ..ParentStorage import ParentStorage
-from ..SaveInterface import SaveInterface
-from ..Storage import Storage
+from ..parent_storage import ParentStorage
+from ..save_interface import SaveInterface
+from ..storage import Storage
 from ..utility.dsp import calculate_peak, calculate_rms
 from ..utility.fake_jit import jit
 from ..utility.file_handling import write_file_handle

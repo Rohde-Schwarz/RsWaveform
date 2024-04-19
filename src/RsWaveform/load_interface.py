@@ -5,7 +5,7 @@ from __future__ import annotations
 import abc
 import typing
 
-from .ParentStorage import ParentStorage
+from .parent_storage import ParentStorage
 
 if typing.TYPE_CHECKING:
     from pathlib import Path

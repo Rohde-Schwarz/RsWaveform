@@ -13,9 +13,9 @@ import numpy as np
 from RsWaveform.meta import Meta
 
 from ..iqw import Load as LoadIqw
-from ..LoadInterface import LoadInterface
-from ..ParentStorage import ParentStorage
-from ..Storage import Storage
+from ..load_interface import LoadInterface
+from ..parent_storage import ParentStorage
+from ..storage import Storage
 from ..utility.file_handling import read_file_handle, read_file_handle_tar
 from ..utility.meta_utils import map_meta_information_name
 

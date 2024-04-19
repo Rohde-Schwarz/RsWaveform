@@ -5,11 +5,11 @@ import numpy as np
 import pytest
 
 from RsWaveform import IqTar
-from RsWaveform.iqtar.Load import Load
-from RsWaveform.iqtar.Save import Save
+from RsWaveform.iqtar.load import Load
+from RsWaveform.iqtar.save import Save
 from RsWaveform.meta import Meta
-from RsWaveform.ParentStorage import ParentStorage
-from RsWaveform.Storage import Storage
+from RsWaveform.parent_storage import ParentStorage
+from RsWaveform.storage import Storage
 
 
 @pytest.fixture

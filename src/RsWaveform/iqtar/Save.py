@@ -5,11 +5,11 @@ import re
 import typing
 from pathlib import Path
 
-from ..iqw.Save import Save as SaveIqw
+from ..iqw.save import Save as SaveIqw
 from ..meta.defaults import META_IQTAR_DEFAULTS as META_DEFAULTS
-from ..ParentStorage import ParentStorage
-from ..SaveInterface import SaveInterface
-from ..Storage import Storage
+from ..parent_storage import ParentStorage
+from ..save_interface import SaveInterface
+from ..storage import Storage
 from ..utility.file_handling import write_file_handle, write_file_handle_tar
 
 

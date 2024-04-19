@@ -9,10 +9,10 @@ from datetime import datetime
 
 import numpy as np
 
-from ..LoadInterface import LoadInterface
+from ..load_interface import LoadInterface
 from ..meta import Meta
-from ..ParentStorage import ParentStorage
-from ..Storage import Storage
+from ..parent_storage import ParentStorage
+from ..storage import Storage
 from ..utility.fake_jit import jit
 from ..utility.file_handling import read_file_handle
 from .utility.array_to_bytes import unpack_bytes_to_bool_array
@@ -92,20 +92,20 @@ class Load(LoadInterface):
     def load_in_chunks(
         self,
         file: typing.Union[str, typing.IO, Path],
-        nr_samples: int,
-        samples_offset: int,
+        samples: int,
+        offset: int,
     ) -> ParentStorage:
         """Load chunk waveform data from file."""
         separators = ["{WWAVEFORM", "{WAVEFORM"]
         with read_file_handle(file) as fp:
             header_content, content = self._read_chunks(fp, separators)
-            content += fp.read((nr_samples + 4) * 4 + 100)
+            content += fp.read((samples + 4) * 4 + 100)
             # +4 due to opt words and 100 just an offset to make sure we get everything
 
         tags = self._split_data_via_tags_meta(header_content)
         tags.update(self._split_data_via_tags_waveform(content, True))
         tags.update(
-            self._split_data_via_tags_control_list_width4(content, nr_samples, True)
+            self._split_data_via_tags_control_list_width4(content, samples, True)
         )
 
         mwv_segment_count = int(tags.pop("mwv segment count", 1))
@@ -115,13 +115,13 @@ class Load(LoadInterface):
         if isinstance(file, str):
             parent_storage.filename = file
         storages = [Storage() for _ in range(mwv_segment_count)]
-        iq_data = self._extract_iq_chunks(tags, nr_samples, samples_offset)
+        iq_data = self._extract_iq_chunks(tags, samples, offset)
         index = 0
         storages[index].data = iq_data
         meta = self._extract_meta(tags, index)
         meta = self._handle_mwv_meta_data(meta, index)
         storages[index].meta = Meta(**meta)
-        if nr_samples != len(iq_data):
+        if samples != len(iq_data):
             raise ValueError(
                 "Sanity problem. Sample setting and actual sample count does not match."
             )

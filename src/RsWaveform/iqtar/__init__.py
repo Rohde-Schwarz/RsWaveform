@@ -1,6 +1,6 @@
 """Iq tar loader and saver implementation."""
 
-from .Load import Load
-from .Save import Save
+from .load import Load
+from .save import Save
 
 __all__ = ["Load", "Save"]
