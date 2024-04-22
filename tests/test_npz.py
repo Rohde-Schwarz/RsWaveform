@@ -1,6 +1,5 @@
-import pathlib
 from datetime import datetime
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import numpy as np
 import pytest
@@ -34,7 +33,11 @@ def meta() -> Meta:
     )
 
 
-def test_save(reference, meta, tmpdir, reference_npz_file_name):
+@patch("RsWaveform.npz.save.np")
+def test_save(mock_np: MagicMock, reference, meta):
+    mock_np.real = np.real
+    mock_np.imag = np.imag
+    mock_np.iinfo = np.iinfo
     parent_storage = ParentStorage()
     storage = Storage()
     storage.data = reference
@@ -42,13 +45,17 @@ def test_save(reference, meta, tmpdir, reference_npz_file_name):
     parent_storage.storages[0] = storage
     saver = Save()
     saver.dtype = np.float16
-    filename = pathlib.Path(tmpdir) / "test.npz"
+    filename = "test.npz"
     saver.save(filename, parent_storage)
-    with open(reference_npz_file_name, mode="rb") as file:
-        ref = file.read()
-    with open(filename, mode="rb") as file:
-        saved = file.read()
-    assert ref == saved
+    call_args = mock_np.savez_compressed.call_args[1]
+    assert filename == call_args.get("file")
+    assert np.array_equal(
+        np.real(reference).astype(np.float16), call_args.get("storages")[0]["i"]
+    )
+    assert np.array_equal(
+        np.imag(reference).astype(np.float16), call_args.get("storages")[0]["q"]
+    )
+    assert meta._items == call_args.get("storages")[0]["meta"]  # pylint: disable=W0212
 
 
 def test_load(reference, meta, reference_npz_file_name):

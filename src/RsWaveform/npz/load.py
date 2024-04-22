@@ -25,7 +25,7 @@ class Load(LoadInterface, NpzInterface):
 
     def load(self, file: typing.Union[str, typing.IO, Path]) -> ParentStorage:
         """Load waveform data from npz file."""
-        content = np.load(file, allow_pickle=True)
+        content = np.load(file=file, allow_pickle=True)
         data_objs = content.get("storages")
         if not data_objs:
             raise ValueError(f"File {file} is not compliant to data schema.")

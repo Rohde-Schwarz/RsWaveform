@@ -25,9 +25,9 @@ class Save(SaveInterface, NpzInterface):
     ) -> None:
         """Save waveform data to file."""
         data_objs = []
-        for data in datas.storages:
-            i_values = np.real(data.data).astype(self.dtype)
-            q_values = np.imag(data.data).astype(self.dtype)
-            meta = data.meta._items  # pylint: disable=W0212
+        for storage in datas.storages:
+            i_values = np.real(storage.data).astype(self.dtype)
+            q_values = np.imag(storage.data).astype(self.dtype)
+            meta = storage.meta._items  # pylint: disable=W0212
             data_objs.append({"i": i_values, "q": q_values, "meta": meta})
-        np.savez_compressed(file, storages=data_objs)  # type: ignore
+        np.savez_compressed(file=file, storages=data_objs)  # type: ignore
