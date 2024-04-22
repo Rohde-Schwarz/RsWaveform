@@ -85,8 +85,8 @@ def test_load_skip_i_is_none(mock_np, reference_npz_file_name, caplog):
         "RsWaveform.npz.load",
         30,
         (
-            "Skipping index 0 of file C:\\Users\\sauerbre\\Documents\\Git\\RsWaveform\\"
-            "tests\\data\\dummy.npz content because no i values are in it."
+            f"Skipping index 0 of file {reference_npz_file_name}"
+            " content because no i values are in it."
         ),
     )
 
@@ -116,9 +116,8 @@ def test_load_skip_i_and_q_not_equal(mock_np, reference_npz_file_name, caplog):
         "RsWaveform.npz.load",
         30,
         (
-            "Skipping index 0 of file C:\\Users\\sauerbre\\Documents\\Git\\RsWaveform\\"
-            "tests\\data\\dummy.npz content because i value and"
-            " q value lengths are not identical."
+            f"Skipping index 0 of file {reference_npz_file_name}"
+            " content because i value and q value lengths are not identical."
         ),
     )
 
@@ -141,7 +140,7 @@ def test_load_in_chunks(reference, meta, reference_npz_file_name):
         loader.load_in_chunks(reference_npz_file_name, 10, 0)
 
 
-def test_load_meta(reference, meta, reference_npz_file_name):
+def test_load_meta(meta, reference_npz_file_name):
     loader = Load()
     loader.dtype = np.float16
     parent_storage = loader.load_meta(reference_npz_file_name)
