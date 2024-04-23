@@ -82,7 +82,7 @@ class MetaWv(MetaBase):
 
     @property
     def rms(self) -> typing.Optional[float]:
-        """Read the RMS value."""
+        """The RMS value of the signal."""
         return self._items.get("rms")
 
     @rms.setter
@@ -91,9 +91,27 @@ class MetaWv(MetaBase):
 
     @property
     def peak(self) -> typing.Optional[float]:
-        """Read the signal peak value."""
+        """The signal peak value of the signal."""
         return self._items.get("peak")
 
     @peak.setter
     def peak(self, value: float) -> None:
         self._items["peak"] = value
+
+    @property
+    def samples(self) -> typing.Optional[int]:
+        """The sample count of the waveform."""
+        return self._items.get("samples")
+
+    @samples.setter
+    def samples(self, value: int) -> None:
+        self._items["samples"] = value
+
+    @property
+    def reflevel(self) -> typing.Optional[float]:
+        """The reference value of the signal."""
+        return self._items.get("reflevel")
+
+    @reflevel.setter
+    def reflevel(self, value: float) -> None:
+        self._items["reflevel"] = value

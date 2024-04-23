@@ -10,6 +10,8 @@ META_WV_DEFAULTS = {
     "control_list": None,
     "rms": None,
     "peak": None,
+    "samples": None,
+    "reflevel": None,
 }
 
 META_IQTAR_DEFAULTS = {
