@@ -8,10 +8,10 @@ import pytest
 
 from RsWaveform import RsWaveform, normalize
 from RsWaveform.meta import Meta
-from RsWaveform.ParentStorage import ParentStorage
-from RsWaveform.Storage import Storage
-from RsWaveform.wv.Load import Load
-from RsWaveform.wv.Save import Save
+from RsWaveform.parent_storage import ParentStorage
+from RsWaveform.storage import Storage
+from RsWaveform.wv.load import Load
+from RsWaveform.wv.save import Save
 
 
 @pytest.fixture

@@ -4,10 +4,10 @@ import numpy as np
 import pytest
 
 from RsWaveform import Iqw
-from RsWaveform.iqw.Load import Load
-from RsWaveform.iqw.Save import Save
+from RsWaveform.iqw.load import Load
+from RsWaveform.iqw.save import Save
 from RsWaveform.meta import Meta
-from RsWaveform.ParentStorage import ParentStorage
+from RsWaveform.parent_storage import ParentStorage
 
 
 @pytest.fixture

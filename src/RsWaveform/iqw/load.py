@@ -6,8 +6,8 @@ import typing
 
 import numpy as np
 
-from ..LoadInterface import LoadInterface
-from ..ParentStorage import ParentStorage
+from ..load_interface import LoadInterface
+from ..parent_storage import ParentStorage
 from ..utility.fake_jit import jit
 from ..utility.file_handling import read_file_handle
 

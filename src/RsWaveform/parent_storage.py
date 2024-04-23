@@ -4,7 +4,7 @@ import abc
 import typing
 from datetime import datetime
 
-from .Storage import Storage
+from .storage import Storage
 
 
 class ParentStorage(abc.ABC):

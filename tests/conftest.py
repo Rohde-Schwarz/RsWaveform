@@ -49,3 +49,9 @@ def reference_iqtar_file_name_huge() -> str:
 def reference_iqtar_file_name_multi_channel() -> str:
     dirname = os.path.dirname(__file__)
     return os.path.join(os.path.realpath(dirname), "data", "dummy_multi_channel.iq.tar")
+
+
+@pytest.fixture
+def reference_npz_file_name() -> str:
+    dirname = os.path.dirname(__file__)
+    return os.path.join(os.path.realpath(dirname), "data", "dummy.npz")

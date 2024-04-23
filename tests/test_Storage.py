@@ -12,8 +12,8 @@ import numpy as np
 import pytest
 
 from RsWaveform.meta import Meta
-from RsWaveform.ParentStorage import ParentStorage
-from RsWaveform.Storage import Storage, encode_datetime, msgpack_import
+from RsWaveform.parent_storage import ParentStorage
+from RsWaveform.storage import Storage, encode_datetime, msgpack_import
 
 
 @pytest.fixture
