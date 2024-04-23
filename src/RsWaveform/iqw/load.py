@@ -20,7 +20,7 @@ class Load(LoadInterface):
 
     def load(self, file: typing.Union[str, typing.IO, Path]) -> ParentStorage:
         """Load iwq data from file."""
-        parent_storage = ParentStorage()
+        parent_storage = ParentStorage(no_defaults=True)
         with read_file_handle(file) as fp:
             content = fp.read()
         iq_data = self._extract_iq(content)

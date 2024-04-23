@@ -35,16 +35,24 @@ def encode_datetime(obj):
 
 
 class Storage(abc.ABC):
-    """Storage class implementation."""
+    """Storage class implementation.
 
-    def __init__(self, serialized: typing.Optional[bytes] = None) -> None:
+    Args:
+        serialized (typing.Optional[bytes], optional): Serialized data.
+            Defaults to None.
+        no_defaults (bool, optional): Storage meta data should have no defaults at
+            initialization. Defaults to False.
+    """
+
+    def __init__(
+        self, serialized: typing.Optional[bytes] = None, no_defaults: bool = False
+    ) -> None:
         """Initialize Storage class."""
         if serialized:
             self.deserialize(serialized)
         else:
             self.data: np.ndarray = np.zeros((1024,), dtype=np.complex128)
-            # self.meta: dict = {}
-            self.meta: Meta = Meta()
+            self.meta: Meta = Meta(no_defaults=no_defaults)
 
     @property
     def samples(self) -> int:
