@@ -8,13 +8,25 @@ from .storage import Storage
 
 
 class ParentStorage(abc.ABC):
-    """ParentStorage class implementation."""
+    """ParentStorage class implementation.
 
-    def __init__(self, number_of_storages: int = 1):
+    Args:
+        number_of_storages (int, optional): Initialize number of storages.
+            Defaults to 1.
+        no_defaults (bool, optional): Storage meta data should have no defaults at
+            initialization. Defaults to False.
+
+    Raises:
+        ValueError: If number of storages is smaller than 1.
+    """
+
+    def __init__(self, number_of_storages: int = 1, no_defaults: bool = False):
         """Initialize ParentStorage class."""
         if number_of_storages <= 0:
             raise ValueError("Only positive number of storages allowed!")
-        self._storages = [Storage() for _ in range(number_of_storages)]
+        self._storages = [
+            Storage(no_defaults=no_defaults) for _ in range(number_of_storages)
+        ]
         self._filename: str = ""
         self._timestamp: datetime = datetime.now()
 
