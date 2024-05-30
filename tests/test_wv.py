@@ -135,6 +135,13 @@ def test_loader_meta_only(reference_waveform_file_name: str, meta):
     assert obtained_meta == ref_meta
 
 
+def test_meta_provides_date_field(reference_waveform_file_name: str, meta):
+    loader = Load()
+    parent_storage = loader.load_meta(reference_waveform_file_name)
+    obtained_meta = parent_storage.storages[0].meta
+    assert obtained_meta.date == meta["date"]
+
+
 def test_loader_mwv(
     reference_waveform_mwv_file_name: str, meta_mwv: dict, reference_mwv: np.ndarray
 ):
