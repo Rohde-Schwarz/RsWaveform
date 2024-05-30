@@ -12,6 +12,7 @@ META_WV_DEFAULTS = {
     "peak": None,
     "samples": None,
     "reflevel": None,
+    "date": None,
 }
 
 META_IQTAR_DEFAULTS = {
