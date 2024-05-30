@@ -260,6 +260,9 @@ class Load(LoadInterface):
                 value = int(value)
             elif key == "reflevel":
                 value = float(value)
+            elif key == "frequency":
+                meta.update({"center_frequency": float(value)})
+                value = None
             elif key == "mwv_segment_level_offs":
                 possible_values = value.split(",")
                 offset = possible_values[index * 2]
@@ -417,6 +420,7 @@ class Load(LoadInterface):
             ("DATE", r"", r"[\d\-;\:]+"),  # Timestamp of waveform
             ("SAMPLES", r"", r"[\de\-\+]+"),  # Sample count
             ("CLOCK", r"", r"[\d\.e\-\+]+"),  # Waveform sampling frequency
+            ("FREQUENCY", r"", r"[\d\.e\-\+]+"),  # center frequency of the signal
             ("REFLEVEL", r"", r"[\d\.e\-\+]+"),  # Reference level for playback
             ("VECTOR MAX", r"", r"[\d\.\-e\+]+"),  # tbd
             ("LEVEL OFFS", r"", r"([\d\.\-e\+]+),([\d\.\-e\+]+)"),

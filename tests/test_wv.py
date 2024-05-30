@@ -46,6 +46,7 @@ def meta() -> Meta:
             "peak": 0.0,
             "samples": 2,
             "reflevel": -20.0,
+            "center_frequency": 1234000000.0,
         }
     )
 
@@ -64,6 +65,7 @@ def meta_mwv() -> Meta:
             "peak": 200.0,
             "samples": 2000,
             "reflevel": -10.0,
+            "center_frequency": 5678000000.0,
         }
     )
 
