@@ -46,6 +46,7 @@ def meta() -> Meta:
             "peak": 0.0,
             "samples": 2,
             "reflevel": -20.0,
+            "center_frequency": 1234000000.0,
         }
     )
 
@@ -64,6 +65,7 @@ def meta_mwv() -> Meta:
             "peak": 200.0,
             "samples": 2000,
             "reflevel": -10.0,
+            "center_frequency": 5678000000.0,
         }
     )
 
@@ -133,6 +135,13 @@ def test_loader_meta_only(reference_waveform_file_name: str, meta):
     ref_control_list = ref_meta.pop("control_list", np.array([]))
     assert np.array_equal(obtained_control_list, ref_control_list)
     assert obtained_meta == ref_meta
+
+
+def test_meta_provides_date_field(reference_waveform_file_name: str, meta):
+    loader = Load()
+    parent_storage = loader.load_meta(reference_waveform_file_name)
+    obtained_meta = parent_storage.storages[0].meta
+    assert obtained_meta.date == meta["date"]
 
 
 def test_loader_mwv(
