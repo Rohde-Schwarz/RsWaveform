@@ -30,7 +30,7 @@ jobs:
         run: |
           tox -e test -- --junitxml=results.xml tests/
       - name: Test report
-        uses: mikepenz/action-junit-report@v4
+        uses: mikepenz/action-junit-report@v5
         if: always()
         with:
           check_name: Test Report (${{ matrix.os }}, ${{ matrix.python }})
@@ -61,7 +61,7 @@ jobs:
         run: |
           tox -e test${{ matrix.tests }} -- --junitxml=results.xml tests/
       - name: Test report
-        uses: mikepenz/action-junit-report@v4
+        uses: mikepenz/action-junit-report@v5
         if: always()
         with:
           check_name: Test Report (${{ matrix.os }}, ${{ matrix.python }}, ${{ matrix.tests }})
