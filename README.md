@@ -24,7 +24,7 @@ Install from pypi.org:
 $ pip install RsWaveform
 ```
 
-You need at least Python 3.8.
+You need at least Python 3.9.
 
 ## Setup environment
 
