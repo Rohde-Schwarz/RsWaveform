@@ -57,7 +57,8 @@ def write_file_handle_tar(
 
 
 def _file_handle_tar(
-    file: typing.Union[str, tarfile.TarFile, typing.IO, Path], mode: str
+    file: typing.Union[str, tarfile.TarFile, typing.IO, Path],
+    mode: typing.Literal["w:", "r:"]
 ) -> typing.Generator[tarfile.TarFile, None, None]:
     """File handler context manager implementation."""
     if isinstance(file, tarfile.TarFile):
@@ -66,5 +67,5 @@ def _file_handle_tar(
         with tarfile.open(fileobj=file, mode=mode) as f:  # not perfect
             yield f
     else:
-        with tarfile.open(typing.cast(str, file), mode) as f:
+        with tarfile.open(name=typing.cast(str, file), mode=mode) as f:
             yield f
