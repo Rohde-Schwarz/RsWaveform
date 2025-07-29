@@ -58,7 +58,7 @@ def write_file_handle_tar(
 
 def _file_handle_tar(
     file: typing.Union[str, tarfile.TarFile, typing.IO, Path],
-    mode: typing.Literal["w:", "r:"]
+    mode: typing.Literal["w:", "r:"],
 ) -> typing.Generator[tarfile.TarFile, None, None]:
     """File handler context manager implementation."""
     if isinstance(file, tarfile.TarFile):
