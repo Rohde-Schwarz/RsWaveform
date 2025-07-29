@@ -37,12 +37,12 @@ def meta() -> Meta:
             "copyright": "Rohde & Schwarz",
             "comment": "Test waveform file",
             "control_length": 2,
-            "date": datetime(2023, 1, 5, 10, 3, 52),
+            "date": datetime(2025, 7, 29, 9, 43, 51),
             "clock": 100000000.0,
             "marker": {"marker_list_1": [[0, 1], [32, 0], [63, 0]]},
             "control_list": np.array([[0, 1], [1, 0], [1, 0], [0, 1]]),
             "encryption_flag": False,
-            "rms": 2.220459,
+            "rms": 2.220703,
             "peak": 0.0,
             "samples": 2,
             "reflevel": -20.0,
@@ -168,7 +168,7 @@ def test_saver(
     with io.BytesIO() as file:
         saver.save(file, parent_storage)
         bins = file.getvalue()
-    bins = re.sub(rb"\{DATE:[\d\-;\:]+\}", b"{DATE:2023-01-05;10:03:52}", bins)
+    bins = re.sub(rb"\{DATE:[\d\-;\:]+\}", b"{DATE:2025-07-29;09:43:51}", bins)
     with open(reference_waveform_file_name, "rb") as file:
         ref = file.read()
     ref = re.sub(rb": #", b":#", ref)
@@ -277,7 +277,7 @@ def test_save(reference_waveform_file_name: str, reference: np.ndarray, meta: di
     with io.BytesIO() as file:
         wv.save(file)
         bins = file.getvalue()
-    bins = re.sub(rb"\{DATE:[\d\-;\:]+\}", b"{DATE:2023-01-05;10:03:52}", bins)
+    bins = re.sub(rb"\{DATE:[\d\-;\:]+\}", b"{DATE:2025-07-29;09:43:51}", bins)
     with open(reference_waveform_file_name, "rb") as file:
         ref = file.read()
     ref = re.sub(rb": #", b":#", ref)

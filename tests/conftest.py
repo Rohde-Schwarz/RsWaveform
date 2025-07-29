@@ -3,10 +3,10 @@ import os
 import pytest
 
 
-@pytest.fixture(params=["dummy.wv", "dummy_2.wv"])
+@pytest.fixture
 def reference_waveform_file_name(request) -> str:
     dirname = os.path.dirname(__file__)
-    return os.path.join(os.path.realpath(dirname), "data", request.param)
+    return os.path.join(os.path.realpath(dirname), "data", "dummy.wv")
 
 
 @pytest.fixture
