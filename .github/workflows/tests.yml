@@ -67,6 +67,10 @@ jobs:
           check_name: Test Report (${{ matrix.os }}, ${{ matrix.python }}, ${{ matrix.tests }})
           report_paths: "**/results.xml"
           detailed_summary: true
+      - name: Create coverage
+        continue-on-error: true
+        run: |
+          tox -e coverage
       - name: Upload coverage
         uses: actions/upload-artifact@v4
         if: always()
