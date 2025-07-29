@@ -67,16 +67,17 @@ jobs:
           check_name: Test Report (${{ matrix.os }}, ${{ matrix.python }}, ${{ matrix.tests }})
           report_paths: "**/results.xml"
           detailed_summary: true
-      - name: Create coverage
+      - name: Echo created files
         continue-on-error: true
         run: |
-          tox -e coverage
+          dir ${{ github.workspace }}/
       - name: Upload coverage
         uses: actions/upload-artifact@v4
         if: always()
         with:
             name: coverage-${{ matrix.python }}-${{ matrix.os }}${{ matrix.tests }}
-            path: "${{ github.workspace }}/.coverage*"
+            path: | 
+              ${{ github.workspace }}/.coverage*
             retention-days: 1
 
   # Collectiong and combining all coverage files
