@@ -13,7 +13,7 @@ if typing.TYPE_CHECKING:
 
 @contextmanager
 def read_file_handle(
-    file: typing.Union[str, typing.IO, Path]
+    file: typing.Union[str, typing.IO, Path],
 ) -> typing.Generator[typing.IO, None, None]:
     """Read from a waveform file."""
     return _file_handle(file, "rb")
@@ -21,7 +21,7 @@ def read_file_handle(
 
 @contextmanager
 def write_file_handle(
-    file: typing.Union[str, typing.IO, Path]
+    file: typing.Union[str, typing.IO, Path],
 ) -> typing.Generator[typing.IO, None, None]:
     """Write to a waveform file."""
     return _file_handle(file, "wb+")
@@ -34,7 +34,7 @@ def _file_handle(
 ) -> typing.Generator[typing.IO, None, None]:
     """File handler context manager implementation."""
     if isinstance(file, io.IOBase):
-        yield file
+        yield typing.cast(typing.IO, file)
     else:
         with open(typing.cast(str, file), mode, encoding=encoding) as f:
             yield f
@@ -42,7 +42,7 @@ def _file_handle(
 
 @contextmanager
 def read_file_handle_tar(
-    file: typing.Union[str, tarfile.TarFile, typing.IO, Path]
+    file: typing.Union[str, tarfile.TarFile, typing.IO, Path],
 ) -> typing.Generator[tarfile.TarFile, None, None]:
     """Read from a tar file."""
     return _file_handle_tar(file, "r:")
@@ -50,14 +50,15 @@ def read_file_handle_tar(
 
 @contextmanager
 def write_file_handle_tar(
-    file: typing.Union[str, tarfile.TarFile, typing.IO, Path]
+    file: typing.Union[str, tarfile.TarFile, typing.IO, Path],
 ) -> typing.Generator[tarfile.TarFile, None, None]:
     """Write to a tar file."""
     return _file_handle_tar(file, "w:")
 
 
 def _file_handle_tar(
-    file: typing.Union[str, tarfile.TarFile, typing.IO, Path], mode: str
+    file: typing.Union[str, tarfile.TarFile, typing.IO, Path],
+    mode: typing.Literal["w:", "r:"],
 ) -> typing.Generator[tarfile.TarFile, None, None]:
     """File handler context manager implementation."""
     if isinstance(file, tarfile.TarFile):
@@ -66,5 +67,5 @@ def _file_handle_tar(
         with tarfile.open(fileobj=file, mode=mode) as f:  # not perfect
             yield f
     else:
-        with tarfile.open(typing.cast(str, file), mode) as f:
+        with tarfile.open(name=typing.cast(str, file), mode=mode) as f:
             yield f

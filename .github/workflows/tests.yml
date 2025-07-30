@@ -13,7 +13,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -59,6 +59,7 @@ jobs:
       - name: Run pytest with coverage
         continue-on-error: true
         run: |
+          cd ${{ github.workspace }}
           tox -e test${{ matrix.tests }} -- --junitxml=results.xml tests/
       - name: Test report
         uses: mikepenz/action-junit-report@v5
@@ -72,7 +73,9 @@ jobs:
         if: always()
         with:
             name: coverage-${{ matrix.python }}-${{ matrix.os }}${{ matrix.tests }}
-            path: "${{ github.workspace }}/.coverage*"
+            include-hidden-files: true
+            path: | 
+              ${{ github.workspace }}/.coverage*
             retention-days: 1
 
   # Collectiong and combining all coverage files

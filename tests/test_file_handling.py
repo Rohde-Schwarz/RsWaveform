@@ -44,7 +44,7 @@ def empty_file(file_name: str) -> str:  # type: ignore[misc]
 
 @contextmanager
 def create_temp_tarfile(
-    contents: typing.Dict[str, bytes]
+    contents: typing.Dict[str, bytes],
 ) -> typing.Generator[Path, None, None]:
     """Create a temporary tar file with the given contents."""
     with tempfile.NamedTemporaryFile(delete=False) as temp_file:
