@@ -78,6 +78,7 @@ jobs:
         if: always()
         with:
             name: coverage-${{ matrix.python }}-${{ matrix.os }}${{ matrix.tests }}
+            include-hidden-files: true
             path: | 
               ${{ github.workspace }}/.coverage*
             retention-days: 1
