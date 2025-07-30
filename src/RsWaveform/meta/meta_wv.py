@@ -1,5 +1,6 @@
 """WV meta data for Storage container."""
 
+import datetime
 import typing
 
 import numpy as np
@@ -115,3 +116,12 @@ class MetaWv(MetaBase):
     @reflevel.setter
     def reflevel(self, value: float) -> None:
         self._items["reflevel"] = value
+
+    @property
+    def date(self) -> typing.Optional[datetime.datetime]:
+        """The timestamp of the loaded file."""
+        return self._items.get("date")
+
+    @date.setter
+    def date(self, value: float) -> None:
+        self._items["date"] = value
