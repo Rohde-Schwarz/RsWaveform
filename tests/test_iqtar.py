@@ -32,6 +32,7 @@ def meta():
             "format": "complex",
             "name": "Python iq.tar Writer (iqdata.py)",
             "comment": "RS WaveForm, TheAE-RA",
+            "samples": 2,
             "date": datetime(2023, 3, 1, 10, 19, 37, 43312),
         }
     )
@@ -48,6 +49,7 @@ def meta_multi_channel():
             "format": "complex",
             "name": "Python iq.tar Writer",
             "comment": "RS WaveForm, TheAE-RA",
+            "samples": 2,
             "date": datetime(2023, 3, 3, 8, 9, 25, 842264),
         }
     )
@@ -82,6 +84,7 @@ def test_loader_chunk(
     assert parent_storage.storages[0].data == pytest.approx(reference_huge, rel=0.0001)
     meta["date"] = datetime(2023, 4, 11, 10, 32, 30, 586434)
     meta["name"] = "Python iq.tar Writer"
+    meta["samples"] = 100015
     assert meta == parent_storage.storages[0].meta
 
 
@@ -150,6 +153,7 @@ def test_load_chunks(reference_iqtar_file_name_huge: str, reference_huge, meta):
     assert iqtar.data[0] == pytest.approx(reference_huge, rel=0.0001)
     meta["date"] = datetime(2023, 4, 11, 10, 32, 30, 586434)
     meta["name"] = "Python iq.tar Writer"
+    meta["samples"] = 100015
     assert iqtar.meta[0] == meta
 
 

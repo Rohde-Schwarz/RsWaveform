@@ -101,7 +101,7 @@ class Load(LoadInterface):
             if key == "clock":
                 value = float(value)
             elif key == "samples":
-                continue
+                value = int(value)
             elif key == "numberofchannels":
                 value = int(value)
             elif key == "scalingfactor":
