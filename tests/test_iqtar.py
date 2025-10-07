@@ -1,5 +1,5 @@
+import datetime
 import os
-from datetime import datetime
 
 import numpy as np
 import pytest
@@ -33,7 +33,7 @@ def meta():
             "name": "Python iq.tar Writer (iqdata.py)",
             "comment": "RS WaveForm, TheAE-RA",
             "samples": 2,
-            "date": datetime(2023, 3, 1, 10, 19, 37, 43312),
+            "date": datetime.datetime(2023, 3, 1, 10, 19, 37, 43312),
         }
     )
     return _meta
@@ -50,7 +50,7 @@ def meta_multi_channel():
             "name": "Python iq.tar Writer",
             "comment": "RS WaveForm, TheAE-RA",
             "samples": 2,
-            "date": datetime(2023, 3, 3, 8, 9, 25, 842264),
+            "date": datetime.datetime(2023, 3, 3, 8, 9, 25, 842264),
         }
     )
     return _meta
@@ -82,7 +82,7 @@ def test_loader_chunk(
     parent_storage = loader.load_in_chunks(reference_iqtar_file_name_huge, 10, 5)
     assert parent_storage.number_of_storages() == 1
     assert parent_storage.storages[0].data == pytest.approx(reference_huge, rel=0.0001)
-    meta["date"] = datetime(2023, 4, 11, 10, 32, 30, 586434)
+    meta["date"] = datetime.datetime(2023, 4, 11, 10, 32, 30, 586434)
     meta["name"] = "Python iq.tar Writer"
     meta["samples"] = 100015
     assert meta == parent_storage.storages[0].meta
@@ -93,6 +93,24 @@ def test_loader_only_meta(reference_iqtar_file_name: str, meta: dict):
     parent_storage = loader.load_meta(reference_iqtar_file_name)
     meta["datafilename"] = "dummy.complex.1ch.float32"
     assert parent_storage.storages[0].meta == meta
+
+
+def test_loader_load_iso_time(
+    reference_iqtar_file_name_iso_time: str,
+):
+    loader = Load()
+    parent_storage = loader.load_meta(reference_iqtar_file_name_iso_time)
+    expected_datetime = datetime.datetime(
+        2025,
+        10,
+        7,
+        16,
+        33,
+        36,
+        997730,
+        tzinfo=datetime.timezone(datetime.timedelta(seconds=7200)),
+    )
+    assert parent_storage.storages[0].meta["date"] == expected_datetime
 
 
 def test_saver_save(reference_iqtar_file_name, reference: np.ndarray, meta: Meta):
@@ -151,7 +169,7 @@ def test_load_chunks(reference_iqtar_file_name_huge: str, reference_huge, meta):
     assert iqtar.parent_storage.number_of_storages() == 1
     assert iqtar.filename == reference_iqtar_file_name_huge
     assert iqtar.data[0] == pytest.approx(reference_huge, rel=0.0001)
-    meta["date"] = datetime(2023, 4, 11, 10, 32, 30, 586434)
+    meta["date"] = datetime.datetime(2023, 4, 11, 10, 32, 30, 586434)
     meta["name"] = "Python iq.tar Writer"
     meta["samples"] = 100015
     assert iqtar.meta[0] == meta
