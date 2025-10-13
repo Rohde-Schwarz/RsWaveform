@@ -111,8 +111,7 @@ class Load(LoadInterface):
             elif key == "datafilename":
                 value = str(value)
             elif key == "date":
-                date_pattern = "%Y-%m-%dT%H:%M:%S" + (".%f" if "." in value else "")
-                value = datetime.strptime(value, date_pattern)
+                value = datetime.fromisoformat(value)
             meta.update({key: value})
         return meta
 
