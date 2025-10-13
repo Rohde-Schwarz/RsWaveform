@@ -246,7 +246,7 @@ class Load(LoadInterface):
             elif key in ["vector_max", "clock"]:
                 value = float(value)
             elif key == "date":
-                value = datetime.strptime(value, "%Y-%m-%d;%H:%M:%S")
+                value = datetime.strptime(value.strip(), "%Y-%m-%d;%H:%M:%S")
             elif key == "control_length":
                 value = int(value)
             elif re.match(r"marker_list_\d+", key):
