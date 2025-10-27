@@ -69,7 +69,7 @@ jobs:
           report_paths: "**/results.xml"
           detailed_summary: true
       - name: Upload coverage
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: always()
         with:
             name: coverage-${{ matrix.python }}-${{ matrix.os }}${{ matrix.tests }}
