@@ -66,7 +66,7 @@ class Load(LoadInterface):
         return data
 
     @staticmethod
-    @jit(forceobj=True)
+    @jit(forceobj=True,looplift=False)
     def _extract_pairs(buf: bytes, start: int = 0) -> bytes:
         """Extract data pairs from binary buffer."""
         single_pair = bytearray()
