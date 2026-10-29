@@ -57,7 +57,7 @@ wv.meta[0]
     'copyright': 'Rohde & Schwarz',
     'comment': 'Test waveform file',
     'clock': 100000000.0,
-    'marker': {'marker list 1': [[0, 1], [32, 0], [63, 0]],},
+    'marker': {'marker_list_1': [[0, 1], [32, 0], [63, 0]],},
     'control_length': None,
     'control_list': {},
     'level offs': (2.220459, 0.0),
@@ -91,10 +91,13 @@ wv.meta[0].update({
 })
 # or use the meta data properties
 wv.meta[0].comment = 'Test waveform file'
-wv.meta[0].marker.update({'marker list 1': [[0, 1], [32, 0], [63, 0]]})
+wv.meta[0].marker.update({'marker_list_1': [[0, 1], [32, 0], [63, 0]]})
 # save to file
 wv.save(r"someFileName.wv")
 ```
+
+Marker dictionary keys use underscores, such as `marker_list_1`. The writer
+converts these keys to the waveform file's `MARKER LIST 1` tags.
 
 ### Load iqw files
 
