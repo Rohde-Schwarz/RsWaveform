@@ -1,9 +1,9 @@
 """Save implementation for iqtar."""
 
-import os
 import re
 import typing
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 from ..iqw.save import Save as SaveIqw
 from ..meta.defaults import META_IQTAR_DEFAULTS as META_DEFAULTS
@@ -138,21 +138,19 @@ class Save(SaveInterface):
     ):
         if isinstance(file, str):
             filename = Path(file).name
-            path = Path(file).parent
             binaryfile = re.sub(
                 "iq.tar", "complex.1ch.float32", filename, flags=re.IGNORECASE
             )
             xml_filename = re.sub("iq.tar", "xml", filename, flags=re.IGNORECASE)
         else:
-            path = Path.home() / ".RsWaveform"
             binaryfile = "data.complex.1ch.float32"
             xml_filename = "data.xml"
 
-        self._write_data(path / binaryfile, data, scale)
-        self._write_xml(data, path / xml_filename, binaryfile)
+        with TemporaryDirectory(prefix="rswaveform-") as temp_directory:
+            path = Path(temp_directory)
+            self._write_data(path / binaryfile, data, scale)
+            self._write_xml(data, path / xml_filename, binaryfile)
 
-        with write_file_handle_tar(file) as tar:
-            tar.add(str(path / binaryfile), arcname=binaryfile)
-            tar.add(str(path / xml_filename), arcname=xml_filename)
-        os.remove(os.path.join(path, binaryfile))
-        os.remove(os.path.join(path, xml_filename))
+            with write_file_handle_tar(file) as tar:
+                tar.add(str(path / binaryfile), arcname=binaryfile)
+                tar.add(str(path / xml_filename), arcname=xml_filename)

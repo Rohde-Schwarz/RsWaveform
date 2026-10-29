@@ -1,5 +1,9 @@
 import datetime
+import io
 import os
+import tarfile
+import typing
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -10,6 +14,61 @@ from RsWaveform.iqtar.save import Save
 from RsWaveform.meta import Meta
 from RsWaveform.parent_storage import ParentStorage
 from RsWaveform.storage import Storage
+
+
+@pytest.mark.parametrize("output_kind", ["buffer", "path", "string", "tar"])
+def test_save_without_home_directory(
+    tmp_path, monkeypatch, reference, meta, output_kind
+):
+    home = tmp_path / "new-user"
+    monkeypatch.setattr(Path, "home", classmethod(lambda cls: home))
+    data = ParentStorage()
+    data.storages[0].data = reference
+    data.storages[0].meta = meta
+    archive_path = tmp_path / "roundtrip.iq.tar"
+    buffer = io.BytesIO()
+    target: typing.Any
+    if output_kind == "buffer":
+        target = buffer
+    elif output_kind == "path":
+        target = archive_path
+    elif output_kind == "string":
+        target = str(archive_path)
+    else:
+        target = tarfile.open(fileobj=buffer, mode="w:")
+
+    Save().save(target, data)
+    if output_kind == "tar":
+        assert not target.closed
+        target.close()
+    if output_kind in ["buffer", "tar"]:
+        assert not buffer.closed
+        archive_path.write_bytes(buffer.getvalue())
+    actual = Load().load(archive_path)
+    assert actual.storages[0].data == pytest.approx(reference, rel=0.0001)
+    assert actual.storages[0].meta["clock"] == meta["clock"]
+    assert not home.exists()
+    assert sorted(p.name for p in tmp_path.iterdir()) == [archive_path.name]
+
+
+def test_save_cleans_staging_files_on_error(tmp_path, monkeypatch, reference):
+    data = ParentStorage()
+    data.storages[0].data = reference
+    # An invalid clock makes writing XML fail after writing the samples.
+    data.storages[0].meta["clock"] = 0.0
+    staged = []
+    original_write_data = Save._write_data
+
+    def record_write_data(filename, parent, scale):
+        staged.append(filename)
+        return original_write_data(filename, parent, scale)
+
+    monkeypatch.setattr(Save, "_write_data", staticmethod(record_write_data))
+    with pytest.raises(ValueError, match="Clock is a mandatory parameter"):
+        Save().save(str(tmp_path / "incomplete.iq.tar"), data)
+    assert staged
+    assert all(not file.exists() for file in staged)
+    assert list(tmp_path.iterdir()) == []
 
 
 @pytest.fixture
